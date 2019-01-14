@@ -1,7 +1,9 @@
 import pandas as pd
 import numpy as np
+np.set_printoptions(threshold=np.nan)
 
 from sklearn.model_selection import train_test_split
+from sklearn import preprocessing
 from sklearn.preprocessing import MinMaxScaler
 
 class DataProvider:
@@ -17,6 +19,13 @@ class DataProvider:
         y = self.df[:,-1]
         return x, y
 
+    def oneVsAll(self):
+        x, y = self.split()
+        classes = np.unique(y)
+        array = np.zeros((len(y), len(classes)))
+        for (row, val) in enumerate(y):
+            column = np.argwhere(classes == val).flatten()[0]
+            array[row][column] = 1
 
-    def parse():
-        return []
+        return x, array
+

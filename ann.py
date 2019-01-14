@@ -1,6 +1,7 @@
 
 import matplotlib.pyplot as plt
 import seaborn as sns
+import snips as snp
 
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score
@@ -12,13 +13,12 @@ class ANN:
         self.mlp = MLPClassifier(hidden_layer_sizes=hidden_layers, activation="logistic", solver="sgd", max_iter=epochs, learning_rate_init=learning_rate, verbose=verbose)
 
     def train(self, x, y):
-        print(self.mlp)
         self.mlp.fit(x, y)
 
     def score(self, x, y):
         y_pred = self.mlp.predict(x)
-        print(accuracy_score(y, y_pred))
-        cm = confusion_matrix(y, y_pred)
-        print(cm)
-        sns.heatmap(cm, center=True)
-        plt.show()
+        # print(accuracy_score(y, y_pred))
+        # cm = confusion_matrix(y, y_pred)
+        # print(cm)
+        # sns.heatmap(cm, center=True)
+        # plt.show()
