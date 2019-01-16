@@ -17,8 +17,8 @@ class ANN:
 
     def score(self, x, y):
         y_pred = self.mlp.predict(x)
-        # print(accuracy_score(y, y_pred))
-        # cm = confusion_matrix(y, y_pred)
-        # print(cm)
-        # sns.heatmap(cm, center=True)
+        print(accuracy_score(y, y_pred))
+        cm = confusion_matrix(y, y_pred)
+        print(cm)
+        sns.heatmap(cm, center=True)
         # plt.show()
