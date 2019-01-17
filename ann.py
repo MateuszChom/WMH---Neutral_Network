@@ -15,8 +15,11 @@ class ANN:
     def train(self, x, y):
         self.mlp.fit(x, y)
 
+    def predict(self, x):
+        return self.mlp.predict(x)
+
     def score(self, x, y):
-        y_pred = self.mlp.predict(x)
+        y_pred = self.predict(x)
         print(accuracy_score(y, y_pred))
         cm = confusion_matrix(y, y_pred)
         print(cm)

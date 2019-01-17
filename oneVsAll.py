@@ -10,15 +10,23 @@ class OneVsAll:
         self.dp_test = dp_test
 
     def setupClassifiers(self):
-
-        data_dict = self.dp_train.binarize_classes()
-
-        for _, (label, data) in data_dict.items():
+        labels = self.dp_train.labels()
+        for label in labels:
+            data = self.dp_train.binarize(label, upsampled=True)
             X = data[:, 0:-1]
             y_train_logistic = data[:, -1]
-            logistic_classifier = ANN((8,), 500, 0.01, verbose=False)
+            logistic_classifier = ANN((10,), 400, 0.01, verbose=False)
             logistic_classifier.train(X, y_train_logistic)
             logistic_classifier.score(X, y_train_logistic)
             self.logistic_classifiers.append(logistic_classifier)
-            print(label)
+            
+    def predict(self, x, y):
+        results = []
+        labels = self.dp_train.labels()
+        for classifier in self.logistic_classifiers:
+            results.append(classifier.predict(x))
+        print(labels, results)
+        index = np.argmax(results)
+        print(labels[index], y)
+
 
