@@ -1,13 +1,21 @@
 from ann import ANN
 from dataProvider import DataProvider
 from oneVsAll import OneVsAll
+from oneVsOne import OneVsOne
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 
 import numpy as np
 
-seed = 7
+seed = 42
 np.random.seed(seed)
+
+# ------------ Data preprocessing ------------
+
+
+
+
+# ------------ Training ------------
 
 def perform_ova_single_nn():
     dp_train = DataProvider('data/rs_train5_tolerances_10_no_headers.txt')
@@ -50,5 +58,19 @@ def perform_ova_multiple_nn():
     print(classification_report(y_test, y_result))
     print(accuracy_score(y_test, y_result))
 
-perform_ova_single_nn()
-perform_ova_multiple_nn()
+def perform_ovo_multiple_nn():
+    dp_train = DataProvider('data/rs_train5_tolerances_10_no_headers.txt')
+    dp_test = DataProvider('data/rs_test5_tolerances_10_no_headers.txt')
+    x_test, y_test = dp_test.split()
+    ovo = OneVsOne(dp_train)
+    ovo.train((150,), 800, 0.01)
+    y_result = []
+    for row in x_test:
+        y_result.append(ovo.predict(row.reshape(1, -1)))
+    print(classification_report(y_test, y_result))
+    print(accuracy_score(y_test, y_result))
+
+
+# perform_ova_single_nn()
+# perform_ova_multiple_nn()
+perform_ovo_multiple_nn()

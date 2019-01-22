@@ -16,7 +16,6 @@ class OneVsAll:
             y_train_logistic = data[:, -1]
             logistic_classifier = ANN(hidden_layers, epochs, learning_rate, verbose=False)
             logistic_classifier.train(X, y_train_logistic)
-            # logistic_classifier.score(X, y_train_logistic)
             self.logistic_classifiers.append(logistic_classifier)
             
     def predict(self, x):

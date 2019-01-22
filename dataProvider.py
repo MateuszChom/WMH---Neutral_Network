@@ -4,7 +4,7 @@ np.set_printoptions(threshold=np.nan)
 
 from sklearn import preprocessing
 from sklearn.utils import resample
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
 class DataProvider:
 
@@ -18,7 +18,7 @@ class DataProvider:
     def split(self, normalize=True):
         x = self.df[:, 0:-1]
         if normalize:
-            scaler = MinMaxScaler(feature_range=(0, 10))
+            scaler = StandardScaler( ) #MinMaxScaler(feature_range=(0, 10))
             x = scaler.fit_transform(x)
         y = self.df[:,-1]
 
@@ -38,4 +38,16 @@ class DataProvider:
         data = np.vstack((data_p, data_n))
 
         return data
+
+    def binarize(self, labels):
+        x, y = self.split()
+        label1 = labels[0]
+        label2 = labels[1]
+        data = np.hstack((x, y.reshape(-1,1)))
+        data_p = data[data[:, -1] == label1]
+        data_p[:, -1] = 0
+        data_n = data[data[:, -1] == label2]
+        data_n[:, -1] = 1
+
+        return np.vstack((data_p, data_n))
 
