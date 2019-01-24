@@ -71,7 +71,7 @@ def perform_ovo_multiple_nn(config):
     # plt.show()
 
 def perform_tests():
-    for test in scenarios_hidden_layers_1:
+    for test in scenarios_best_hidden_5:
         print("-" * 80)
         print(test)
         perform_ovo_multiple_nn(test)
