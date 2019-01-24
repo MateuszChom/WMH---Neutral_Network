@@ -11,7 +11,7 @@ class OneVsAll:
     def train(self, hidden_layers, epochs, learning_rate):
         labels = self.dp_train.labels()
         for label in labels:
-            data = self.dp_train.binarize(label, upsampled=True)
+            data = self.dp_train.binarizeU(label, upsampled=True)
             X = data[:, 0:-1]
             y_train_logistic = data[:, -1]
             logistic_classifier = ANN(hidden_layers, epochs, learning_rate, verbose=False)

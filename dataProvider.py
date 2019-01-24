@@ -18,13 +18,13 @@ class DataProvider:
     def split(self, normalize=True):
         x = self.df[:, 0:-1]
         if normalize:
-            scaler = StandardScaler( ) #MinMaxScaler(feature_range=(0, 10))
+            scaler = StandardScaler()
             x = scaler.fit_transform(x)
         y = self.df[:,-1]
 
         return x, y
 
-    def binarize(self, label, upsampled=False):
+    def binarizeU(self, label, upsampled=False):
         x, y = self.split()
         data = np.hstack((x, y.reshape(-1,1)))
         data_p = data[data[:, -1] == label]
